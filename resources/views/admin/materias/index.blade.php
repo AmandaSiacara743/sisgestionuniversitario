@@ -1,7 +1,7 @@
 @extends('adminlte::page')
 
 @section('content_header')
-    <h1> <b>Listado de Carreras</b> </h1>
+    <h1> <b>Listado de Materias</b> </h1>
     <br>
 @stop
 
@@ -10,10 +10,10 @@
         <div class="col-md-8">
             <div class="card card-outline card-primary">
                 <div class="card-header">
-                    <h3 class="card-title">Carreras registradas</h3>
+                    <h3 class="card-title">Materias registradas</h3>
 
                     <div class="card-tools">
-                        <a href="{{url('/admin/carreras/create')}}" class="btn btn-primary"> Crear nuevo</a>
+                        <a href="{{url('/admin/materias/create')}}" class="btn btn-primary"> Crear nuevo</a>
                     </div>
                     <!-- /.card-tools -->
                 </div>
@@ -23,7 +23,9 @@
                         <thead>
                         <tr>
                             <th style="text-align: center">Nro</th>
-                            <th style="text-align: center">Nombre de la carrera</th>
+                            <th style="text-align: center">carrera</th>
+                            <th style="text-align: center">Nombre de la materia</th>
+                            <th style="text-align: center">Codigo</th>
                             <th style="text-align: center">Acción</th>
                         </tr>
                         </thead>
@@ -31,21 +33,25 @@
                         @php
                             $contador = 1;
                         @endphp
-                        @foreach($carreras as $carrera)
+                        @foreach($materias as $materia)<!-- de donde stoy sacando las variables -->
                             <tr>
                                 <td style="text-align: center">{{$contador++}}</td>
-                                <td>{{$carrera->nombre}}</td>
+                                <td>{{$materia->carrera->nombre}}</td>
+                                <td>{{$materia->nombre}}</td>
+                                <td>{{$materia->codigo}}</td>
+                                
+                                <!-- paso aca los campos -->
                                 <td style="text-align: center">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a href="{{url('/admin/carreras/'.$carrera->id.'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i></a>
-                                        <form action="{{url('/admin/carreras',$carrera->id)}}" method="post"
-                                              onclick="preguntar{{$carrera->id}}(event)" id="miFormulario{{$carrera->id}}">
+                                        <a href="{{url('/admin/materias/'.$materia->id.'/edit')}}" class="btn btn-success btn-sm"><i class="fas fa-pencil-alt"></i></a>
+                                        <form action="{{url('/admin/materias',$materia->id)}}" method="post"
+                                              onclick="preguntar{{$materia->id}}(event)" id="miFormulario{{$materia->id}}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i></button>
                                         </form>
                                         <script>
-                                            function preguntar{{$carrera->id}}(event) {
+                                            function preguntar{{$materia->id}}(event) {
                                                 event.preventDefault();
                                                 Swal.fire({
                                                     title: '¿Desea eliminar esta registro?',
@@ -58,7 +64,7 @@
                                                     denyButtonText: 'Cancelar',
                                                 }).then((result) => {
                                                     if (result.isConfirmed) {
-                                                        var form = $('#miFormulario{{$carrera->id}}');
+                                                        var form = $('#miFormulario{{$materia->id}}');
                                                         form.submit();
                                                     }
                                                 });
@@ -80,26 +86,26 @@
 
 @section('css')
     <style>
-        /* Fondo transparente y sin borde en el contenedor */
+        
         #example1_wrapper .dt-buttons {
             background-color: transparent;
             box-shadow: none;
             border: none;
             display: flex;
-            justify-content: center; /* Centrar los botones */
-            gap: 10px; /* Espaciado entre botones */
-            margin-bottom: 15px; /* Separar botones de la tabla */
+            justify-content: center; 
+            gap: 10px; 
+            margin-bottom: 15px; 
         }
 
-        /* Estilo personalizado para los botones */
+        
         #example1_wrapper .btn {
-            color: #fff; /* Color del texto en blanco */
-            border-radius: 4px; /* Bordes redondeados */
-            padding: 5px 15px; /* Espaciado interno */
-            font-size: 14px; /* Tamaño de fuente */
+            color: #fff; 
+            border-radius: 4px; 
+            padding: 5px 15px; 
+            font-size: 14px; 
         }
 
-        /* Colores por tipo de botón */
+        
         .btn-danger { background-color: #dc3545; border: none; }
         .btn-success { background-color: #28a745; border: none; }
         .btn-info { background-color: #17a2b8; border: none; }
@@ -115,10 +121,10 @@
                 "pageLength": 5,
                 "language": {
                     "emptyTable": "No hay información",
-                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Carreras",
-                    "infoEmpty": "Mostrando 0 a 0 de 0 Carreras",
-                    "infoFiltered": "(Filtrado de _MAX_ total Carreras)",
-                    "lengthMenu": "Mostrar _MENU_ Carreras",
+                    "info": "Mostrando _START_ a _END_ de _TOTAL_ Materias",
+                    "infoEmpty": "Mostrando 0 a 0 de 0 materias",
+                    "infoFiltered": "(Filtrado de _MAX_ total Materias)",
+                    "lengthMenu": "Mostrar _MENU_ Materias",
                     "loadingRecords": "Cargando...",
                     "processing": "Procesando...",
                     "search": "Buscador:",

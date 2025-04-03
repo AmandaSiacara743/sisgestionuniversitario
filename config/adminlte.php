@@ -338,6 +338,13 @@ return [
         ],
 
         [
+            'text' => 'Materias',
+            'url' => 'admin/materias',
+            'icon' => 'fas fa-fw fa-book',
+            'classes' => 'bg-blue text-white',
+        ],
+        
+        [
             'text' => 'profile',
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-user',

@@ -8,87 +8,80 @@ use Illuminate\Http\Request;
 class CarreraController extends Controller
 {
     /**
-     * Muestra todas las carreras disponibles.
+     * Display a listing of the resource.
      */
     public function index()
     {
-        $carreras = Carrera::all(); // Obtiene todas las carreras de la base de datos
+        $carreras = Carrera::all();
         return view('admin.carreras.index', compact('carreras'));
     }
 
     /**
-     * Muestra el formulario para agregar una nueva carrera.
+     * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('admin.carreras.create'); // Retorna la vista para crear una carrera
+        return view('admin.carreras.create');
     }
 
     /**
-     * Guarda una nueva carrera en la base de datos.
+     * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        // Validación para asegurarnos de que el nombre no esté vacío
         $request->validate([
             'nombre' => 'required|string|max:255',
         ]);
 
-        // Crea la carrera con los datos ingresados
-        Carrera::create($request->all());
+        Carrera::create($request->all()); 
 
-        // Redirige de nuevo a la lista de carreras con un mensaje
         return redirect()->route('admin.carreras.index')
             ->with('mensaje', 'Carrera creada correctamente')
             ->with('icono', 'success');
     }
 
     /**
-     * Muestra la información de una carrera específica.
+     * Display the specified resource.
      */
     public function show(Carrera $carrera)
     {
-        // Esta función no la uso por ahora, pero aquí iría la lógica si la necesito
+        //
     }
 
     /**
-     * Muestra el formulario para editar una carrera.
+     * Show the form for editing the specified resource.
      */
     public function edit($id)
     {
-        $carrera = Carrera::findOrFail($id); // Busca la carrera por ID
+        $carrera = Carrera::findOrFail($id); 
         return view('admin.carreras.edit', compact('carrera'));
     }
 
     /**
-     * Actualiza los datos de una carrera existente.
+     * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
     {
-        // Validación para evitar campos vacíos
         $request->validate([
             'nombre' => 'required|string|max:255',
         ]);
 
-        // Busca la carrera y actualiza los datos
-        $carrera = Carrera::findOrFail($id);
-        $carrera->update($request->all());
+        $carrera = Carrera::findOrFail($id); 
+        $carrera->update($request->all()); 
 
-        // Redirige con un mensaje de éxito
         return redirect()->route('admin.carreras.index')
             ->with('mensaje', 'Carrera actualizada correctamente')
             ->with('icono', 'success');
     }
 
     /**
-     * Elimina una carrera de la base de datos.
+     * Remove the specified resource from storage.
      */
     public function destroy($id)
     {
-        $carrera = Carrera::findOrFail($id); // Encuentra la carrera por ID
-        $carrera->delete(); // La elimina
+        $carrera = Carrera::findOrFail($id); 
+        $carrera->delete(); 
 
-        // Mensaje de confirmación
         return redirect()->route('admin.carreras.index')
             ->with('mensaje', 'Carrera eliminada correctamente')
             ->with('icono', 'success');

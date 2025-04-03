@@ -14,4 +14,9 @@ class Carrera extends Model
     protected $fillable = [
         'nombre',
     ];
+    //relacion de uno a muchos 
+    public function materias()
+    {
+        return $this->hasMany(Materia::class);
+    }
 }
