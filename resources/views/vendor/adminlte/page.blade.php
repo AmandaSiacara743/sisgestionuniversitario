@@ -5,7 +5,21 @@
 
 @section('adminlte_css')
     @stack('css')
-    @yield('css')
+    <style type="text/css">
+        .zoomP{
+            /* Aumentamos la anchura y altura durante 2 segundos */
+            
+            border: 1px solid #c0c0c0;
+            box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.75);
+        }
+
+        .zoomP:hover{
+            /* tranformamos el elemento al pasar el mouse por encima al doble de
+               su tamaño con scale(). */
+            
+        }
+    </style>
+@yield('css')
 @stop
 
 @section('classes_body', $layoutHelper->makeBodyClasses())
